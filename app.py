@@ -9,17 +9,16 @@ import io
 from dotenv import load_dotenv
 
 load_dotenv()
-# FASTAPI
 app = FastAPI()
+# Can Remove
 app.add_middleware(
     CORSMiddleware, allow_origins=['*'], allow_methods=['*'], allow_headers=['*'],
 )
 
-# Anthropic API setup
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
-# Data storage (in-memory for this example)
+# Data storage (in-memory)
 sales_data = []
 
 class SalesData(BaseModel):
@@ -74,4 +73,3 @@ async def sales_trends():
     prompt = f"Analyze the following sales data, identify key trends, and provide a detailed sales forecast:\n{json.dumps(sales_data, indent=2)}"
     analysis = call_anthropic_api(prompt)
     return {"trends_and_forecast": analysis}
-
