@@ -37,6 +37,7 @@ def call_anthropic_api(prompt):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Anthropic API call failed: {str(e)}")
 
+
 @app.post('/ingest-data')
 async def ingest_data(data: SalesData):
     global sales_data
@@ -52,6 +53,7 @@ async def ingest_data(data: SalesData):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Data ingestion failed: {str(e)}")
 
+
 @app.get('/representative-performance/{rep_name}')
 async def representative_performance(rep_name: str):
     rep_data = [sale for sale in sales_data if sale['representative'] == rep_name]
@@ -62,11 +64,13 @@ async def representative_performance(rep_name: str):
     feedback = call_anthropic_api(prompt)
     return {"representative": rep_name, "feedback": feedback}
 
+
 @app.get('/team-performance')
 async def team_performance():
     prompt = f"Analyze the following sales data and provide comprehensive overall team performance feedback:\n{json.dumps(sales_data, indent=2)}"
     feedback = call_anthropic_api(prompt)
     return {"team_feedback": feedback}
+
 
 @app.get('/sales-trends')
 async def sales_trends():
