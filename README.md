@@ -6,7 +6,11 @@
   5. Python==3.11.5
 
 # Usage
-The following is a Fastapi that utilizes anthropics Claude opus 3 for spreadsheet analysis from within a CSV or Json
+The following is a Fastapi that utilizes anthropics Claude opus 3 for spreadsheet analysis from within a CSV or Json\
+To run please use the following command:
+```
+uvicorn app:app --reload
+```
 ## /ingest-data 
 Must be called first to send data. Accepts JSON or CSV.
 - Method: POST
